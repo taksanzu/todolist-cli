@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <h2>Danh Sách Danh Mục</h2>
+  <button class="btn btn-primary btn-sm m-1" data-bs-toggle="modal" data-bs-target="#categoryModal">Thêm</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tên</th>
+      <th>Ngày Tạo</th>
+      <th>Ngày Cập Nhật</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="categories.length == 0">
+      <td colspan="5" class="text-center">Không có dữ liệu</td>
+    </tr>
+    <tr *ngFor="let category of categories">
+      <td>{{ category.id }}</td>
+      <td>{{ category.name }}</td>
+      <td>{{ category.createdAt | date: 'dd/MM/yyyy'}}</td>
+      <td>{{ category.updatedAt | date: 'dd/MM/yyyy'}}</td>
+      <td>
+        <button class="btn btn-warning btn-sm m-1" (click)="editCategory(category.id)">Sửa</button>
+        <button class="btn btn-danger btn-sm m-1" (click)="deleteCategory(category.id)">Xóa</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Modal -->
+<app-category-modal [category]="selectedCategory" (saveCategoryEvent)="onSaveCategory()"></app-category-modal>

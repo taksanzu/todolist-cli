@@ -1,0 +1,32 @@
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true" #userModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userModalLabel">Người Dùng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+      <form #userForm="ngForm">
+        <div class="modal-body">
+          <input type="hidden" id="id" name="id" [(ngModel)]="user.id">
+          <div class="mb-3">
+            <label for="username" class="form-label">Tên Đăng Nhập<i class="text-danger">(*)</i> :</label>
+            <input type="text" class="form-control" id="username" [(ngModel)]="user.username" name="username" required readonly>
+          </div>
+          <div class="mb-3">
+            <label for="roles" class="form-label">Vai Trò<i class="text-danger">(*)</i> :</label>
+            <select class="form-select" id="roles" [(ngModel)]="selectedRoles" name="roles" required>
+              <option *ngFor="let role of availableRoles" [ngValue]="role">{{ role }}</option>
+            </select>
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Đóng</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!userForm.form.valid">Lưu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

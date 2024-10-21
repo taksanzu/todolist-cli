@@ -1,0 +1,28 @@
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true" #categoryModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="categoryModalLabel">Danh mục</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+      <form (ngSubmit)="saveCategory()" #categoryForm="ngForm">
+        <div class="modal-body">
+          <input type="hidden" id="id" name="id" [(ngModel)]="category.id">
+          <div class="mb-3">
+            <label for="name" class="form-label">Tên danh mục<i class="text-danger">(*)</i> :</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="category.name" name="name" required>
+          </div>
+
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Đóng</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!categoryForm.form.valid">Lưu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

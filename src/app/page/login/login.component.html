@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header text-center">
+          <h3>Đăng nhập</h3>
+        </div>
+        <div class="card-body">
+          <form (submit)="onSubmit()">
+            <div class="form-group mb-3">
+              <label for="username">Email</label>
+              <input type="text" id="username" class="form-control" placeholder="Nhập username" [(ngModel)]="loginRequest.username" name="username" required>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="password">Mật khẩu</label>
+              <input type="password" id="password" class="form-control" placeholder="Nhập mật khẩu" [(ngModel)]="loginRequest.password" name="password" required>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">Đăng nhập</button>
+            </div>
+          </form>
+        </div>
+
+<!--        <div class="card-footer text-center">-->
+<!--          <small>Chưa có tài khoản? <a routerLink="/register">Đăng ký ngay</a></small>-->
+<!--        </div>-->
+      </div>
+    </div>
+  </div>
+</div>

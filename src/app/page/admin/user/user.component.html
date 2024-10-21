@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <h2>Danh Sách Người Dùng</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tên Người Dùng</th>
+      <th>Email</th>
+      <th>Quyền</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="users.length === 0">
+      <td colspan="4" class="text-center">Không có dữ liệu</td>
+    </tr>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.roles.join(', ') }}</td>
+      <td>
+        <button class="btn btn-warning btn-sm m-1" (click)="editUser(user.id)">Sửa</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-user-modal [user]="selectedUser" ></app-user-modal>
+
