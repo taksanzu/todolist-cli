@@ -40,6 +40,7 @@ export class TaskModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCategories();
+    this.loadAssignee();
   }
 
   loadCategories(): void {
@@ -63,7 +64,7 @@ export class TaskModalComponent implements OnInit {
       }
     );
   }
-  
+
   saveTask(): void {
     if (this.task.id) {
       this.taskService.updateTask(this.task, this.selectedCategoryId, this.selectedAssigneeId).subscribe(
@@ -96,17 +97,17 @@ export class TaskModalComponent implements OnInit {
     const modalInstance = bootstrap.Modal.getInstance(modalElement);
 
     if (modalInstance) {
-      modalInstance.hide(); // Đóng modal nếu có instance tồn tại
+      modalInstance.hide();
     } else {
       // @ts-ignore
       const newModalInstance = new bootstrap.Modal(modalElement);
-      newModalInstance.hide(); // Đóng modal
+      newModalInstance.hide();
     }
   }
 
   clearModal(): void {
     // @ts-ignore
     this.task = {id: undefined, title: '', description: '', important: 0, dueDate: new Date(), done: false, category: {id: undefined, name: ''}};
-    this.errorMessage = ""; // Xóa thông báo lỗi
+    this.errorMessage = "";
   }
 }

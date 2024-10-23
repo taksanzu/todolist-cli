@@ -23,7 +23,7 @@ export class CategoryComponent implements OnInit {
         this.categories = data;
       },
       (error) => {
-        console.error('Error loading categories:', error);  // Hiển thị lỗi chi tiết
+        console.error('Error loading categories:', error);
       }
     );
   }

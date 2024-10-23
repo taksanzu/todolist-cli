@@ -47,7 +47,7 @@ export class UserModalComponent {
     const modalInstance = bootstrap.Modal.getInstance(modalElement);
 
     if (modalInstance) {
-      modalInstance.hide(); // Đóng modal đúng cách
+      modalInstance.hide();
     } else {
       console.error('Modal not found');
     }

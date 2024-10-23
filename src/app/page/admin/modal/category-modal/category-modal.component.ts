@@ -8,10 +8,10 @@ import { CategoryService } from '../../../../service/admin/category.service';
   styleUrl: './category-modal.component.css'
 })
 export class CategoryModalComponent {
-  @Input() category: Partial<Category> = {}; // Khai báo thuộc tính đầu vào
+  @Input() category: Partial<Category> = {};
   @Output() saveCategoryEvent = new EventEmitter<Partial<Category>>();
   @ViewChild('categoryModal') categoryModal!: ElementRef;
-  errorMessage: string = ""; // Thông báo lỗi
+  errorMessage: string = "";
 
   constructor(private categoryService: CategoryService) {}
 
@@ -25,25 +25,23 @@ export class CategoryModalComponent {
 
   saveCategory() {
     if (this.category.id) {
-      // Sửa category
       this.categoryService.updateCategory(this.category).subscribe(
         () => {
           this.saveCategoryEvent.emit();
-          this.closeModal(); // Đóng modal
+          this.closeModal();
         },
         (error) => {
-          this.errorMessage = error.error.message // Lấy thông báo lỗi từ API
+          this.errorMessage = error.error.message
         }
       );
     } else {
-      // Thêm category mới
       this.categoryService.createCategory(this.category).subscribe(
         () => {
           this.saveCategoryEvent.emit();
           this.closeModal();
         },
         (error) => {
-          this.errorMessage = error.error.message // Lấy thông báo lỗi từ service
+          this.errorMessage = error.error.message
         }
       );
     }
