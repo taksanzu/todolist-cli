@@ -1,13 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../../models/user';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private API = 'http://localhost:8080/api/admin/users';
+  private API = environment.apiUrl + 'users';
 
   constructor(private http: HttpClient) { }
 
@@ -20,12 +22,23 @@ export class UserService {
   }
 
   // Lấy danh sách người dùng
-  getUsers(): Observable<any> {
-    return this.http.get(this.API, { headers: this.getAuthHeaders() });
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.API, { headers: this.getAuthHeaders() });
   }
-  
+
   // Lấy người dùng theo id
-  getUserById(id: number): Observable<any> {
-    return this.http.get(`${this.API}/${id}`, { headers: this.getAuthHeaders() });
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.API}/${id}`, {headers: this.getAuthHeaders()});
   }
+
+  // Lấy người dùng là user
+  getNormalUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.API}/roles/user`, {headers: this.getAuthHeaders()});
+  }
+
+  // Sửa người dùng
+  updateUser(user: Partial<User>): Observable<User> {
+    return this.http.put<User>(`${this.API}/${user.id}`, user, {headers: this.getAuthHeaders()});
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth/auth.service';
 import { Router } from '@angular/router';
 
@@ -9,9 +9,13 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
+  username: string | null = '';
+
   constructor(private authService: AuthService, private router: Router) { }
 
+
   isLoggedIn(): boolean {
+    this.username = localStorage.getItem('username');
     return this.authService.isLoggedIn();
   }
 

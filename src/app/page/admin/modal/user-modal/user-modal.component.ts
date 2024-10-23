@@ -1,6 +1,7 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { UserService } from '../../../../service/admin/user.service';
 import { User } from '../../../../models/user';
+import { Role } from '../../../../models/role';
 
 @Component({
   selector: 'app-user-modal',
@@ -10,10 +11,10 @@ import { User } from '../../../../models/user';
 export class UserModalComponent {
 
   @Input() user: Partial<User> = {};
+  @Output() saveUserEvent = new EventEmitter<Partial<User>>();
   @ViewChild('userModal') userModal!: ElementRef;
   errorMessage: string = "";
-  selectedRoles: string[] = [];
-  availableRoles: string[] = ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_MODERATOR'];
+  availableRoles = Object.values(Role);
 
   constructor(private userService: UserService) {}
 
@@ -22,6 +23,22 @@ export class UserModalComponent {
     modalElement.addEventListener('hide.bs.modal', () => {
       this.clearModal();
     });
+  }
+
+  selectedRoles(): string[] {
+    return this.user.roles?.includes(Role.ADMIN) ? [Role.ADMIN] : [Role.USER];
+  }
+
+  updateUser(): void {
+    this.userService.updateUser(this.user).subscribe(
+      (user) => {
+        this.saveUserEvent.emit(user);
+        this.closeModal();
+      },
+      (error) => {
+        this.errorMessage = error.error.message
+      }
+    );
   }
 
   closeModal(): void {

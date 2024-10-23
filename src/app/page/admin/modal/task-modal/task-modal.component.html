@@ -1,0 +1,54 @@
+<div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true" #taskModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="taskModalLabel">Công Việc</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+      <form (ngSubmit)="saveTask()" #taskForm="ngForm" >
+        <div class="modal-body">
+          <input type="hidden" id="id" name="id" [(ngModel)]="task.id">
+          <div class="mb-3">
+            <label for="title" class="form-label">Tiêu đề<i class="text-danger">(*)</i> :</label>
+            <input type="text" class="form-control" id="title" [(ngModel)]="task.title" name="title" required>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Mô tả:</label>
+            <textarea class="form-control" id="description" [(ngModel)]="task.description" name="description"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="important" class="form-label">Mức độ quan trọng<i class="text-danger">(*)</i> :</label>
+            <select class="form-select" id="important" [(ngModel)]="task.important" name="important" required>
+              <option [ngValue]="1">Vừa</option>
+              <option [ngValue]="2">Bình thường</option>
+              <option [ngValue]="3">Cao</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="dueDate" class="form-label">Ngày hết hạn<i class="text-danger">(*)</i> :</label>
+            <input type="date" class="form-control" id="dueDate" [(ngModel)]="task.dueDate" name="dueDate" required>
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">Danh mục<i class="text-danger">(*)</i> :</label>
+            <select class="form-select" id="category" [(ngModel)]="selectedCategoryId" name="category" required>
+              <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="assignee" class="form-label">Người làm<i class="text-danger">(*)</i> :</label>
+            <select class="form-select" id="assignee" [(ngModel)]="selectedAssigneeId" name="assignee" required>
+              <option *ngFor="let assignee of assignees" [ngValue]="assignee.id">{{ assignee.name }}</option>
+            </select>
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Đóng</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!taskForm.form.valid">Lưu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

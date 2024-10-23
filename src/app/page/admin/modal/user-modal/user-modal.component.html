@@ -5,7 +5,7 @@
         <h5 class="modal-title" id="userModalLabel">Người Dùng</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
       </div>
-      <form #userForm="ngForm">
+      <form #userForm="ngForm" (ngSubmit)="updateUser()">
         <div class="modal-body">
           <input type="hidden" id="id" name="id" [(ngModel)]="user.id">
           <div class="mb-3">

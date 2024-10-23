@@ -2,44 +2,55 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginRequest } from '../../models/login-request';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.development';
+import { ChangePasswordRequest } from '../../models/change-password-request';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private API = 'http://localhost:8080/api/auth/login';  // URL của API
+  private API = environment.apiUrl + '/auth';
 
   constructor(private http: HttpClient) { }
 
-  login(loginRequest: LoginRequest): Observable<any> {
-    return this.http.post(this.API, loginRequest);
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
   }
 
-  // Kiểm tra xem JWT token có tồn tại hay không
+  login(loginRequest: LoginRequest): Observable<any> {
+    return this.http.post(`${this.API}/login`, loginRequest);
+  }
+
+  changePassword(changePasswordRequest: ChangePasswordRequest): Observable<any> {
+    return this.http.post(`${this.API}/change-password`, changePasswordRequest, { headers: this.getAuthHeaders() });
+  }
+
   isLoggedIn(): boolean {
     const token = localStorage.getItem('authToken');
     return token !== null;
   }
 
-  // Đăng xuất người dùng
   logout(): void {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('username');
+    localStorage.removeItem('roles');
   }
 
-  // Lấy danh sách các roles từ localStorage
   getRoles(): string[] {
     const roles = localStorage.getItem('roles');
     return roles ? JSON.parse(roles) : [];
   }
 
-  // Kiểm tra nếu người dùng có vai trò admin
   isAdmin(): boolean {
     const roles = this.getRoles();
     return roles.includes('ROLE_ADMIN');
   }
 
-  // Kiểm tra nếu người dùng có vai trò user
   isUser(): boolean {
     const roles = this.getRoles();
     return roles.includes('ROLE_USER');

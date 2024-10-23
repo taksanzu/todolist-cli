@@ -24,7 +24,7 @@ export class UserComponent implements OnInit {
                 this.users = data;
             },
             (error) => {
-                console.error('Error loading users:', error);  // Hiển thị lỗi chi tiết
+                console.error('Lỗi khi hiển thị người dùng: ', error);
             }
         );
     }
@@ -40,9 +40,13 @@ export class UserComponent implements OnInit {
                 modalInstance.show();
             },
             (error) => {
-                console.error('Error loading user:', error);
+                console.error('Lỗi khi hiển thị người dùng:', error);
             }
         );
+    }
+    
+    onSavedUser(){
+        this.loadUsers();
     }
 
 }

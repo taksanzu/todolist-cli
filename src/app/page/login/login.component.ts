@@ -17,20 +17,16 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit(): void {
-    // Gọi phương thức đăng nhập từ AuthService
     this.authService.login(this.loginRequest)
       .subscribe(response => {
         localStorage.setItem('authToken', response.token);
+        localStorage.setItem('username', response.username);
         localStorage.setItem('roles', JSON.stringify(response.roles));
 
         const roles = response.roles;
-        if (roles.includes('ROLE_ADMIN')) {
-          this.router.navigate(['/admin']);
-        } else if (roles.includes('ROLE_USER')) {
-          this.router.navigate(['/user']);
-        } else {
-          console.error('Không tìm thấy vai trò phù hợp');
-        }
+        roles.includes('ROLE_ADMIN') ? this.router.navigate(['/admin']) :
+          roles.includes('ROLE_USER') ? this.router.navigate(['/user']) :
+            this.router.navigate(['/login']);
       }, error => {
         console.error('Đăng nhập thất bại:', error);
       });

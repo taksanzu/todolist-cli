@@ -7,7 +7,6 @@
       <th>Tên Người Dùng</th>
       <th>Email</th>
       <th>Quyền</th>
-      <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -16,16 +15,13 @@
     </tr>
     <tr *ngFor="let user of users">
       <td>{{ user.id }}</td>
-      <td>{{ user.username }}</td>
+      <td>{{ user.name }}</td>
       <td>{{ user.email }}</td>
       <td>{{ user.roles.join(', ') }}</td>
-      <td>
-        <button class="btn btn-warning btn-sm m-1" (click)="editUser(user.id)">Sửa</button>
-      </td>
     </tr>
     </tbody>
   </table>
 </div>
 
-<app-user-modal [user]="selectedUser" ></app-user-modal>
+<app-user-modal [user]="selectedUser" (saveUserEvent)="onSavedUser()"></app-user-modal>
 

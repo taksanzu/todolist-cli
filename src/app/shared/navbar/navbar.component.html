@@ -1,25 +1,35 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-4 mb-5">
-  <a class="navbar-brand" [routerLink]="isLoggedIn() && isAdmin() ? '/admin' : '/' ">My Todo App</a>
+  <a class="navbar-brand" routerLink="isLoggedIn() && isAdmin() ? '/admin' : '/' ">My Todo App</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-<!--      <li *ngIf="isLoggedIn() && isAdmin()" class="nav-item">-->
-<!--        <a class="nav-link" routerLink="/category">Danh mục</a>-->
-<!--      </li>-->
-<!--      <li *ngIf="isLoggedIn() && isAdmin()" class="nav-item">-->
-<!--        <a class="nav-link" routerLink="/task">Công việc</a>-->
-<!--      </li>-->
       <li *ngIf="isLoggedIn() && isAdmin()" class="nav-item">
-        <a class="nav-link" routerLink="/user">Người dùng</a>
+        <a class="nav-link" routerLink="/category">Danh mục</a>
+      </li>
+      <li *ngIf="isLoggedIn() && isAdmin()" class="nav-item">
+        <a class="nav-link" routerLink="/task">Công việc</a>
+      </li>
+      <li *ngIf="isLoggedIn() && isAdmin()" class="nav-item">
+        <a class="nav-link" routerLink="/user-admin">Người dùng</a>
       </li>
       <li *ngIf="!isLoggedIn()" class="nav-item">
         <a class="nav-link" routerLink="/login">Đăng nhập</a>
       </li>
-      <li *ngIf="isLoggedIn()" class="nav-item">
-        <a class="nav-link" (click)="logout()">Đăng xuất</a>
+    </ul>
+    <ul *ngIf="isLoggedIn()" class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ username }}
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Đổi mật khẩu</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#" (click)="logout()">Đăng xuất</a></li>
+        </ul>
       </li>
     </ul>
+
   </div>
 </nav>

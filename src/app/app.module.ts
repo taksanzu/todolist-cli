@@ -5,19 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomeComponent } from './page/home/home.component';
-import { CategoryComponent } from './page/category/category.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CategoryModalComponent } from './page/modal/category-modal/category-modal.component';
 import { FormsModule } from '@angular/forms';
-import { TaskComponent } from './page/task/task.component';
-import { TaskModalComponent } from './page/modal/task-modal/task-modal.component';
 import { LoginComponent } from './page/login/login.component';
-import { HomeAdminComponent } from './page/home-admin/home-admin.component';
-import { HomeUserComponent } from './page/home-user/home-user.component';
-import { GroupComponent } from './page/admin/group/group.component';
 import { UserComponent } from './page/admin/user/user.component';
-import { GroupModalComponent } from './page/admin/modal/group-modal/group-modal.component';
 import { UserModalComponent } from './page/admin/modal/user-modal/user-modal.component';
+import { HomeAdminComponent } from './page/admin/home-admin/home-admin.component';
+import { ChangePasswordModalComponent } from './page/change-password-modal/change-password-modal.component';
+import { CategoryComponent } from './page/admin/category/category.component';
+import { CategoryModalComponent } from './page/admin/modal/category-modal/category-modal.component';
+import { TaskComponent } from './page/admin/task/task.component';
+import { TaskModalComponent } from './page/admin/modal/task-modal/task-modal.component';
+import { HomeUserComponent } from './page/user/home-user/home-user.component';
+import { TaskUserComponent } from './page/user/task-user/task-user.component';
 
 @NgModule({
   declarations: [
@@ -29,12 +29,12 @@ import { UserModalComponent } from './page/admin/modal/user-modal/user-modal.com
     TaskComponent,
     TaskModalComponent,
     LoginComponent,
-    HomeAdminComponent,
-    HomeUserComponent,
-    GroupComponent,
     UserComponent,
-    GroupModalComponent,
-    UserModalComponent
+    UserModalComponent,
+    HomeAdminComponent,
+    ChangePasswordModalComponent,
+    HomeUserComponent,
+    TaskUserComponent
   ],
   imports: [
     BrowserModule,
