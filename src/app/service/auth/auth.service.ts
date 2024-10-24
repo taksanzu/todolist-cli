@@ -26,8 +26,8 @@ export class AuthService {
     return this.http.post(`${this.API}/login`, loginRequest);
   }
 
-  changePassword(changePasswordRequest: ChangePasswordRequest): Observable<any> {
-    return this.http.post(`${this.API}/change-password`, changePasswordRequest, { headers: this.getAuthHeaders() });
+  changePassword(changePasswordRequest: Partial<ChangePasswordRequest>): Observable<ChangePasswordRequest> {
+    return this.http.put<ChangePasswordRequest>(`${this.API}/change-password`, changePasswordRequest, { headers: this.getAuthHeaders() });
   }
 
   isLoggedIn(): boolean {

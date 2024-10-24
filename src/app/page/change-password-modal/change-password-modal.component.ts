@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthService } from '../../service/auth/auth.service';
+import { ChangePasswordRequest } from '../../models/change-password-request';
 
 @Component({
   selector: 'app-change-password-modal',
@@ -8,29 +9,18 @@ import { AuthService } from '../../service/auth/auth.service';
 })
 export class ChangePasswordModalComponent {
   @ViewChild('changePasswordModal') changePasswordModal!: ElementRef;
-  oldPassword: string = '';
-  newPassword: string = '';
-  confirmPassword: string = '';
+  changePasswordRequest: Partial<ChangePasswordRequest> = {};
   errorMessage: string | null = null;
 
   constructor(private authService: AuthService) {}
 
   onSubmit(): void {
-    if (this.newPassword !== this.confirmPassword) {
-      this.errorMessage = 'Mật khẩu mới không khớp';
-      return;
-    }
-
-    this.errorMessage = null;
-    this.authService.changePassword({
-      oldPassword: this.oldPassword,
-      newPassword: this.newPassword,
-      confirmPassword: this.confirmPassword
-    }).subscribe(response => {
+    this.authService.changePassword(this.changePasswordRequest).subscribe(response => {
       alert('Đổi mật khẩu thành công');
     }, error => {
-      this.errorMessage = error.message;
+      this.errorMessage = error.error.message;
     });
+    this.closeModal();
   }
 
   ngAfterViewInit(): void {
@@ -41,9 +31,20 @@ export class ChangePasswordModalComponent {
   }
 
   clearModal() {
-    this.oldPassword = '';
-    this.newPassword = '';
-    this.confirmPassword = '';
+    this.changePasswordRequest = {};
     }
-    
+    closeModal(): void {
+      const modalElement = this.changePasswordModal.nativeElement;
+      // @ts-ignore
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+
+      if (modalInstance) {
+        modalInstance.hide(); // Đóng modal đúng cách
+      } else {
+        // @ts-ignore
+        const newModalInstance = new bootstrap.Modal(modalElement);
+        newModalInstance.hide();
+      }
+    }
+
 }
